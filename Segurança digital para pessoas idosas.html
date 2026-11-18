@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Segurança digital para pessoas idosas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{
+  --bg:#F1F4F8; --surface:#FFFFFF; --ink:#14213D; --muted:#44506A;
+  --safe:#0B6E4F; --safe-bg:#E3F3EC; --danger:#A8201A; --danger-bg:#FBE9E7;
+  --line:#C9D2E0; --hero:#14213D; --hero-ink:#FFFFFF; --focus:#1D4ED8;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1422; --surface:#17213A; --ink:#EEF2FA; --muted:#B5C0D6;
+    --safe:#6FD3A8; --safe-bg:#12332A; --danger:#FF9A90; --danger-bg:#3A1B1A;
+    --line:#33405E; --hero:#08101E; --hero-ink:#FFFFFF; --focus:#8FB0FF;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1422; --surface:#17213A; --ink:#EEF2FA; --muted:#B5C0D6;
+  --safe:#6FD3A8; --safe-bg:#12332A; --danger:#FF9A90; --danger-bg:#3A1B1A;
+  --line:#33405E; --hero:#08101E; --hero-ink:#FFFFFF; --focus:#8FB0FF;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);font-size:112.5%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",Verdana,Tahoma,sans-serif;line-height:1.65}
+a{color:inherit}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
+.skip{position:absolute;left:-999px}
+.skip:focus{left:1rem;top:1rem;background:var(--surface);padding:.5rem 1rem;z-index:5}
+
+header.hero{background:var(--hero);color:var(--hero-ink);padding:3.5rem 0 3rem}
+.hero h1{font-size:clamp(2.1rem,7vw,3.4rem);line-height:1.15;margin:0 0 1rem;font-weight:700}
+.hero p{font-size:1.15rem;max-width:36rem;margin:0 0 2rem;opacity:.92}
+.rule{display:grid;gap:.75rem;margin:0;padding:0;list-style:none}
+.rule li{background:rgba(255,255,255,.1);border-left:6px solid #7FE0B5;padding:.9rem 1.1rem;border-radius:4px;font-size:1.1rem}
+.rule strong{display:block;font-size:1.4rem}
+
+nav.toc{background:var(--surface);border-bottom:1px solid var(--line)}
+nav.toc ul{display:flex;flex-wrap:wrap;gap:.25rem 1.25rem;margin:0;padding:.9rem 0;list-style:none}
+nav.toc a{font-weight:700;display:inline-block;padding:.3rem 0}
+
+section{padding:3rem 0 .5rem}
+h2{font-size:clamp(1.6rem,5vw,2.1rem);line-height:1.25;margin:0 0 .75rem}
+.lead{color:var(--muted);margin:0 0 1.5rem}
+
+details{background:var(--surface);border:2px solid var(--line);border-radius:10px;margin-bottom:.85rem}
+summary{cursor:pointer;padding:1.1rem 1.25rem;font-weight:700;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.8rem;line-height:1;color:var(--danger)}
+details[open]{border-color:var(--danger)}
+details[open] summary::after{content:"–"}
+.body{padding:0 1.25rem 1.25rem}
+.body p{margin:.5rem 0}
+.tag{display:block;border-radius:6px;padding:.7rem .9rem;margin-top:.75rem}
+.tag.no{background:var(--danger-bg);color:var(--danger)}
+.tag.ok{background:var(--safe-bg);color:var(--safe)}
+.tag b{color:inherit}
+
+.tips{display:grid;gap:1rem;padding:0;margin:0;list-style:none}
+.tips li{background:var(--surface);border-left:8px solid var(--safe);padding:1rem 1.25rem;border-radius:6px}
+.tips h3{margin:0 0 .25rem;font-size:1.2rem}
+.tips p{margin:0}
+
+.help{background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:1.25rem 1.5rem}
+.help ol{margin:.5rem 0 0;padding-left:1.4rem}
+.help li{margin-bottom:.6rem}
+
+.family{background:var(--safe-bg);border-radius:10px;padding:1.25rem 1.5rem}
+.family h3{margin:0 0 .5rem}
+
+footer{margin-top:3rem;padding:2rem 0;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#golpes">Pular para o conteúdo</a>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Na internet, desconfiar é sinal de esperteza.</h1>
+    <p>Golpistas usam telefone, WhatsApp e mensagens para enganar pessoas de todas as idades. Este guia explica, em linguagem simples, como se proteger.</p>
+    <ul class="rule" aria-label="Regra de ouro">
+      <li><strong>1. Pare.</strong> Golpistas sempre pedem pressa.</li>
+      <li><strong>2. Respire.</strong> Nenhum banco ou órgão público cobra decisão na hora.</li>
+      <li><strong>3. Confirme.</strong> Ligue você mesmo para o número oficial ou fale com a família.</li>
+    </ul>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Seções">
+  <div class="wrap">
+    <ul>
+      <li><a href="#golpes">Golpes comuns</a></li>
+      <li><a href="#dicas">Como se proteger</a></li>
+      <li><a href="#caiu">Caí em um golpe</a></li>
+      <li><a href="#familia">Para a família</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+<section id="golpes">
+  <div class="wrap">
+    <h2>Golpes mais comuns</h2>
+    <p class="lead">Toque em cada golpe para ver como ele funciona e o que fazer.</p>
+
+    <details>
+      <summary>“Oi, mãe, mudei de número”</summary>
+      <div class="body">
+        <p>Alguém usa a foto de um filho ou neto no WhatsApp, diz que trocou de celular e pede dinheiro urgente por Pix, geralmente para pagar uma conta atrasada.</p>
+        <p class="tag no"><b>Não faça:</b> transferir dinheiro sem ter certeza de quem está falando.</p>
+        <p class="tag ok"><b>Faça:</b> ligue para o número antigo da pessoa ou faça uma chamada de vídeo. Se for golpe, a pessoa vai dar desculpas para não falar.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Ligação do “banco” ou da “central de cartão”</summary>
+      <div class="body">
+        <p>Dizem que há uma compra suspeita na sua conta e pedem senha, código do SMS ou que você “mova o dinheiro para uma conta segura”. Também podem mandar um “motoboy” buscar seu cartão.</p>
+        <p class="tag no"><b>Não faça:</b> passar senha, códigos ou entregar o cartão, mesmo cortado ao meio.</p>
+        <p class="tag ok"><b>Faça:</b> desligue e ligue para o número que está no verso do seu cartão. O banco nunca pede senha por telefone.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Mensagem sobre INSS, aposentadoria ou prêmio</summary>
+      <div class="body">
+        <p>Chega um SMS ou WhatsApp dizendo que há dinheiro a receber, um desconto indevido a devolver ou um prêmio de sorteio. Sempre com um link ou um pedido de taxa.</p>
+        <p class="tag no"><b>Não faça:</b> clicar no link ou pagar “taxa” para liberar dinheiro.</p>
+        <p class="tag ok"><b>Faça:</b> consulte seus dados apenas pelo aplicativo oficial Meu INSS ou pelo site gov.br, digitado por você.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Links e anexos suspeitos</summary>
+      <div class="body">
+        <p>Mensagens de “entrega de encomenda”, “conta bloqueada” ou “fatura vencida” levam a páginas falsas que copiam o visual de empresas conhecidas e roubam seus dados.</p>
+        <p class="tag no"><b>Não faça:</b> clicar em links de mensagens que você não esperava.</p>
+        <p class="tag ok"><b>Faça:</b> abra o aplicativo ou site oficial da empresa por conta própria e veja se existe mesmo o aviso.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Falso “suporte técnico” ou pedido de acesso remoto</summary>
+      <div class="body">
+        <p>Alguém liga dizendo que seu celular ou computador está com vírus e pede que você instale um programa para “consertar”. Na verdade, passa a ver tudo o que você faz.</p>
+        <p class="tag no"><b>Não faça:</b> instalar programas a pedido de quem ligou.</p>
+        <p class="tag ok"><b>Faça:</b> desligue. Empresas sérias não ligam avisando de vírus.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="dicas">
+  <div class="wrap">
+    <h2>Como se proteger no dia a dia</h2>
+    <p class="lead">Hábitos simples que evitam a maior parte dos golpes.</p>
+    <ul class="tips">
+      <li><h3>Nunca informe códigos recebidos por SMS</h3><p>Códigos de verificação são como a chave da sua casa. Nenhuma empresa de verdade pede esse número a você.</p></li>
+      <li><h3>Use senhas longas e diferentes</h3><p>Uma frase fácil de lembrar, com 12 letras ou mais, é mais segura que uma data de aniversário. Não use a mesma senha em todos os lugares.</p></li>
+      <li><h3>Ative a verificação em duas etapas</h3><p>No WhatsApp, ative a “confirmação em duas etapas” e crie um PIN. Assim, ninguém clona sua conta só com um código.</p></li>
+      <li><h3>Mantenha o celular atualizado</h3><p>As atualizações corrigem falhas que golpistas exploram. Instale aplicativos apenas pela loja oficial do seu aparelho.</p></li>
+      <li><h3>Configure limites no Pix</h3><p>Peça ao banco para reduzir o valor máximo de transferências, principalmente à noite. Se algo der errado, o prejuízo será menor.</p></li>
+      <li><h3>Cuidado com Wi-Fi público</h3><p>Em praças, shoppings e aeroportos, evite abrir o aplicativo do banco. Prefira os dados móveis do seu plano.</p></li>
+      <li><h3>Converse antes de agir</h3><p>Diante de qualquer pedido de dinheiro ou dados, fale com alguém de confiança. Golpistas dependem do seu silêncio.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section id="caiu">
+  <div class="wrap">
+    <h2>Caí em um golpe. E agora?</h2>
+    <p class="lead">Não sinta vergonha. Golpistas enganam pessoas inteligentes todos os dias. O mais importante é agir rápido.</p>
+    <div class="help">
+      <ol>
+        <li><strong>Ligue para o seu banco</strong> pelo número do verso do cartão e peça o bloqueio de cartões, contas e acessos.</li>
+        <li><strong>Se foi por Pix</strong>, peça ao banco a contestação pelo Mecanismo Especial de Devolução (MED), o quanto antes.</li>
+        <li><strong>Troque as senhas</strong> do banco, do e-mail e do WhatsApp, a partir de um aparelho seguro.</li>
+        <li><strong>Registre um boletim de ocorrência</strong> na delegacia ou na delegacia eletrônica do seu estado. Guarde prints, números e comprovantes.</li>
+        <li><strong>Avise a família e os contatos</strong>, caso o golpista tenha usado seu WhatsApp para pedir dinheiro a outras pessoas.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="familia">
+  <div class="wrap">
+    <div class="family">
+      <h3>Para filhos, netos e cuidadores</h3>
+      <p>Combine uma <strong>palavra secreta da família</strong>, usada para confirmar pedidos urgentes de dinheiro. Ensine sem dar sermão, tenha paciência e deixe claro que a pessoa pode perguntar sempre, sem medo de parecer boba. Em casos de abuso financeiro contra a pessoa idosa, o <strong>Disque 100</strong> recebe denúncias.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Material informativo de caráter geral. Para orientações específicas sobre sua conta, procure sempre o seu banco ou os canais oficiais.
+  </div>
+</footer>
+</body>
+</html>
